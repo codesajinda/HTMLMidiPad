@@ -1,7 +1,7 @@
 angular.module('midiPad').directive('midiPanel',['AudioContextService', 'SoundLoaderService', function(AudioContextService, SoundLoaderService){
   return {
 	  	replace:true,
-	  	template:'<table class="pad"><tr ng-repeat="button in buttons"><td ng-repeat="buttonItem in button" class="{{buttonItem.class}}" ng-click="playSound(buttonItem.index)"></td></tr></table>',
+	  	templateUrl:'../Templates/midi-panel.html',
 	  	scope:{
 	    	midiRows: '=',
 	    	midiCols: '=',
@@ -30,9 +30,9 @@ angular.module('midiPad').directive('midiPanel',['AudioContextService', 'SoundLo
 			function fillRows(){
 			    var index = 0;
 			    var cols = scope.midiCols;
-				for (i=0;i<scope.midiRows;i++) {
+				for (i=0; i < scope.midiRows; i++) {
 					scope.buttons[i]=new Array();
-					for (j=0;j<scope.midiCols;j++) {
+					for (j=0; j < scope.midiCols; j++) {
 						if(scope.sounds[index]){
 							var wav = scope.sounds[index] + '.wav';
 							SoundLoaderService.loadSound(wav).then(onSoundSuccess, onSoundError);
