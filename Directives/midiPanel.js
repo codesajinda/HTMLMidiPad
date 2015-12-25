@@ -1,7 +1,7 @@
 angular.module('midiPad').directive('midiPanel',['AudioContextService', 'SoundLoaderService', function(AudioContextService, SoundLoaderService){
   return {
 	  	replace:true,
-	  	template:'<table class="pad"><tr ng-repeat="dArray in dimensionArray"><td ng-repeat="col in dArray" class="{{col.class}}" ng-click="playSound(col.index)"></td></tr></table>',
+	  	template:'<table class="pad"><tr ng-repeat="button in buttons"><td ng-repeat="buttonItem in button" class="{{buttonItem.class}}" ng-click="playSound(buttonItem.index)"></td></tr></table>',
 	  	scope:{
 	    	midiRows: '=',
 	    	midiCols: '=',
@@ -10,12 +10,12 @@ angular.module('midiPad').directive('midiPanel',['AudioContextService', 'SoundLo
 		link:function(scope, element, attrs){			
 			var soundBuffers = [];
 			var context = AudioContextService.init();
-			scope.dimensionArray = new Array();
+			scope.buttons = new Array();
 			fillRows();
 
-			scope.playSound = function(col){
-				if(soundBuffers[col] && soundBuffers.length > 0){	
-					AudioContextService.playSound(context, soundBuffers[col]);
+			scope.playSound = function(buttonItemIndex){
+				if(soundBuffers[buttonItemIndex] && soundBuffers.length > 0){	
+					AudioContextService.playSound(context, soundBuffers[buttonItemIndex]);
 				}
 			}
 
@@ -31,7 +31,7 @@ angular.module('midiPad').directive('midiPanel',['AudioContextService', 'SoundLo
 			    var index = 0;
 			    var cols = scope.midiCols;
 				for (i=0;i<scope.midiRows;i++) {
-					scope.dimensionArray[i]=new Array();
+					scope.buttons[i]=new Array();
 					for (j=0;j<scope.midiCols;j++) {
 						if(scope.sounds[index]){
 							var wav = scope.sounds[index] + '.wav';
@@ -40,8 +40,8 @@ angular.module('midiPad').directive('midiPanel',['AudioContextService', 'SoundLo
 						if(index == cols){
 							cols = cols + scope.midiCols;
 						}
-						scope.dimensionArray[i][j] = {index:index, class:'c'+cols};
-						index = index +1;
+						scope.buttons[i][j] = {index:index, class:'c'+cols};
+						index = index + 1;
 					}
 				}
 			}
