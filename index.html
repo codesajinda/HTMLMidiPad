@@ -4,7 +4,8 @@
 		<title>Page Title</title>
 		<link rel="stylesheet" type="text/css" href="/reset.css" />
 		<link rel="stylesheet" type="text/css" href="/style.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-touch.min.js"></script>		
 		<script type="text/javascript" src="app.js"></script>
 		<script type="text/javascript" src="/Directives/audioPlayer.js"></script>
 		<script type="text/javascript" src="/Directives/midiPanel.js"></script>		
@@ -13,10 +14,11 @@
 		<script type="text/javascript" src="/Services/SoundLoaderService.js"></script>				
 		<script type="text/javascript" src="/Services/AudioContextService.js"></script>	
 		<link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:400,500' rel='stylesheet' type='text/css'>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	</head>
-	<body>
+	<body ng-keypress="MidiPad.code($event)" ng-controller="MidiPadController as MidiPad">
 
-		<div class="midi-pad" ng-controller="MidiPadController as MidiPad">
+		<div class="midi-pad">
 			<div class="col-50">
 				<playlist playlist="MidiPad.songs" current-song="MidiPad.song"></playlist>	
 			</div>			

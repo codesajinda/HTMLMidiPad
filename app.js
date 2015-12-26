@@ -1,1 +1,1 @@
-angular.module('midiPad', []);
+angular.module('midiPad', ['ngTouch']);
