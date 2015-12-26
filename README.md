@@ -1,4 +1,4 @@
-# MidiPadController
+# HTML Midi Pad
 
 The MidiPadController is a virtual midi pad instrument developed using the following technologies. 
 
