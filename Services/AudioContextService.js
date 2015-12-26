@@ -5,7 +5,7 @@ angular.module('midiPad').service('AudioContextService', ['$window', function($w
 		var context = null;
 		try {
 		    $window.AudioContext = $window.AudioContext|| $window.webkitAudioContext;
-		    context = new AudioContext();
+		    context = new $window.AudioContext();
 		 }
 		catch(e) {
 		   alert('Web Audio API is not supported in this browser');
