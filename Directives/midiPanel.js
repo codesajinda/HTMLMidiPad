@@ -5,10 +5,12 @@ angular.module('midiPad').directive('midiPanel',['AudioContextService', 'SoundLo
 	  	scope:{
 	    	midiRows: '=',
 	    	midiCols: '=',
-	    	sounds:'='
+	    	sounds:'=',
+	    	pressedKey:'='
 		},
 		link:function(scope, element, attrs){			
 			var soundBuffers = [];
+			var keys = [];
 			var context = AudioContextService.init();
 			scope.buttons = new Array();
 			fillRows();
@@ -16,6 +18,22 @@ angular.module('midiPad').directive('midiPanel',['AudioContextService', 'SoundLo
 			scope.playSound = function(buttonItemIndex){
 				if(soundBuffers[buttonItemIndex] && soundBuffers.length > 0){	
 					AudioContextService.playSound(context, soundBuffers[buttonItemIndex]);
+				}
+			}
+
+			scope.$watch('pressedKey', function(val){
+				if(val){
+					setKeyToPlay(val);
+				}
+			})
+
+			function setKeyToPlay(key){
+				for (var i = 0; i < scope.sounds.length; i++) {
+					if(scope.sounds[i].keycode == key){
+						scope.playSound(i);
+						scope.pressedKey = '';
+						break;
+					}
 				}
 			}
 
@@ -34,8 +52,9 @@ angular.module('midiPad').directive('midiPanel',['AudioContextService', 'SoundLo
 					scope.buttons[i]=new Array();
 					for (j=0; j < scope.midiCols; j++) {
 						if(scope.sounds[index]){
-							var wav = scope.sounds[index] + '.wav';
+							var wav = scope.sounds[index].sound + '.wav';
 							SoundLoaderService.loadSound(wav).then(onSoundSuccess, onSoundError);
+							keys.push(scope.sounds[index].keyCode);
 						}
 						if(index == cols){
 							cols = cols + scope.midiCols;

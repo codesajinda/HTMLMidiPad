@@ -2,11 +2,13 @@ angular.module('midiPad').controller('MidiPadController', ['$scope', '$window', 
 	var self = this;
 	self.midiRows = 5;
 	self.midiCols = 5;
-	self.sounds = ['trap-kicks-01', 'trap-kicks-02', 'trap-kicks-03', 'trap-kicks-04', 'trap-kicks-05', 
-					'trap-snare-01', 'trap-snare-02', 'trap-snare-03', 'trap-snare-04', 'trap-snare-05',
-					'trap-hihat-01', 'trap-hihat-02', 'trap-hihat-03', 'trap-hihat-04', 'trap-hihat-05',
-					'trap-chant-01', 'trap-chant-02', 'trap-chant-03', 'trap-chant-04', 'trap-chant-05',
-					'trap-cymbal-01', 'trap-cymbal-02', 'trap-cymbal-03', 'trap-cymbal-04', 'trap-cymbal-05'];
+	self.pressedKey;
+	self.code = code;
+	self.sounds = [{sound:'trap-kicks-01', keycode:113}, {sound:'trap-kicks-02', keycode:119}, {sound:'trap-kicks-03', keycode:101}, {sound:'trap-kicks-04', keycode:114}, {sound:'trap-kicks-05', keycode:116}, 
+					{sound:'trap-snare-01', keycode:121}, {sound:'trap-snare-02', keycode:117}, {sound:'trap-snare-03', keycode:105}, {sound:'trap-snare-04', keycode:111}, {sound:'trap-snare-05', keycode:112},
+					{sound:'trap-hihat-01', keycode:97}, {sound:'trap-hihat-02', keycode:115}, {sound:'trap-hihat-03', keycode:100}, {sound:'trap-hihat-04', keycode:102}, {sound:'trap-hihat-05', keycode:103},
+					{sound:'trap-chant-01', keycode: 104}, {sound:'trap-chant-02', keycode:106}, {sound:'trap-chant-03', keycode:107}, {sound:'trap-chant-04', keycode:108}, {sound:'trap-chant-05', keycode:122},
+					{sound:'trap-cymbal-01', keycode:120}, {sound:'trap-cymbal-02', keycode:99}, {sound:'trap-cymbal-03', keycode:118}, {sound:'trap-cymbal-04', keycode:98}, {sound:'trap-cymbal-05', keycode:110}];
 	self.songs = [{name:'Justin Bieber - Sorry', url:'/Sounds/Songs/sorry.mp3'}, 
 				{name:'Sunil - Mage Amal Biso', url:'/Sounds/Songs/amalBiso.mp3'},
 				{name:'Punjabi', url:'/Sounds/Songs/punjabi.mp3', loop:true},
@@ -23,4 +25,9 @@ angular.module('midiPad').controller('MidiPadController', ['$scope', '$window', 
 				{name:'Tweeks', url:'/Sounds/Songs/Tweeks.mp3'},
 				{name:'New Horizon', url:'/Sounds/Songs/New Horizon.mp3'}];
 	self.song = self.songs[0];
+
+	function code(keycode)
+	{
+		self.pressedKey = keycode;
+	}
 }]);
